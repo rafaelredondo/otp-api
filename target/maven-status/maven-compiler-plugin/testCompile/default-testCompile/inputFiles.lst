@@ -1,0 +1,13 @@
+/Users/rredondo/java-project/src/test/java/com/otp/service/OtpGeneratorServiceTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/EncryptionServiceTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/OtpValidatorServiceTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/config/TestRetryConfig.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/EmailFormatRuleTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/security/SecurityTests.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/OtpNotificationServiceTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/OtpExpirationRuleTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/OtpMatchRuleTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/NotNullRuleTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/OtpServiceTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/AttemptLimitRuleTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/OtpLengthRuleTest.java
