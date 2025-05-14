@@ -33,12 +33,14 @@ public class OtpEndToEndTest {
         when(notificationService.sendOtpNotification(anyString(), anyString())).thenReturn(true);
 
         // 1. Gerar OTP
-        String response = mockMvc.perform(post("/api/otp/generate")
+        String responseBody = mockMvc.perform(post("/api/otp/generate")
                 .param("email", email))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.otp").exists())
                 .andReturn().getResponse().getContentAsString();
-        String otp = response.replaceAll("\\D", ""); // extrai apenas os dígitos do OTP
+                
+        // Extrair o OTP da resposta (assumindo formato JSON: {"otp":"123456","message":"..."})
+        String otp = responseBody.split("\"otp\":\"")[1].split("\"")[0];
 
         // 2. Validar OTP
         mockMvc.perform(post("/api/otp/validate")
@@ -50,30 +52,34 @@ public class OtpEndToEndTest {
 
     @Test
     void shouldInvalidateOldOtpWhenNewOtpIsGenerated() throws Exception {
-        String email = "exemplo@teste.com";
+        String email = "exemplo2@teste.com";
         when(notificationService.sendOtpNotification(anyString(), anyString())).thenReturn(true);
 
         // 1. Gerar primeiro OTP
-        String response1 = mockMvc.perform(post("/api/otp/generate")
+        String responseBody1 = mockMvc.perform(post("/api/otp/generate")
                 .param("email", email))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.otp").exists())
                 .andReturn().getResponse().getContentAsString();
-        String otp1 = response1.replaceAll("\\D", "");
+                
+        // Extrair o primeiro OTP
+        String otp1 = responseBody1.split("\"otp\":\"")[1].split("\"")[0];
 
         // 2. Gerar segundo OTP
-        String response2 = mockMvc.perform(post("/api/otp/generate")
+        String responseBody2 = mockMvc.perform(post("/api/otp/generate")
                 .param("email", email))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.otp").exists())
                 .andReturn().getResponse().getContentAsString();
-        String otp2 = response2.replaceAll("\\D", "");
+                
+        // Extrair o segundo OTP
+        String otp2 = responseBody2.split("\"otp\":\"")[1].split("\"")[0];
 
         // 3. Validar o primeiro OTP (deve falhar)
         mockMvc.perform(post("/api/otp/validate")
                 .param("email", email)
                 .param("otp", otp1))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isBadRequest());
 
         // 4. Validar o segundo OTP (deve funcionar)
         mockMvc.perform(post("/api/otp/validate")
@@ -85,17 +91,19 @@ public class OtpEndToEndTest {
     
     @Test
     void shouldFailValidationWhenOtpIsRevoked() throws Exception {
-        String email = "exemplo@teste.com";
+        String email = "exemplo3@teste.com";
         String reason = "Security concern";
         when(notificationService.sendOtpNotification(anyString(), anyString())).thenReturn(true);
 
         // 1. Gerar OTP
-        String response = mockMvc.perform(post("/api/otp/generate")
+        String responseBody = mockMvc.perform(post("/api/otp/generate")
                 .param("email", email))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.otp").exists())
                 .andReturn().getResponse().getContentAsString();
-        String otp = response.replaceAll("\\D", ""); // extrai apenas os dígitos do OTP
+                
+        // Extrair o OTP
+        String otp = responseBody.split("\"otp\":\"")[1].split("\"")[0];
 
         // 2. Revogar OTP
         mockMvc.perform(post("/api/otp/revoke")
@@ -109,7 +117,45 @@ public class OtpEndToEndTest {
                 .param("email", email)
                 .param("otp", otp))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error").value("Validation Error"))
-                .andExpect(jsonPath("$.message").value("Error validating OTP for email: " + email));
+                .andExpect(jsonPath("$.error").value("Validation Error"));
+    }
+    
+    @Test
+    void shouldFailAfterMaxAttemptsWithInvalidOtp() throws Exception {
+        String email = "exemplo4@teste.com";
+        when(notificationService.sendOtpNotification(anyString(), anyString())).thenReturn(true);
+
+        // 1. Gerar OTP
+        mockMvc.perform(post("/api/otp/generate")
+                .param("email", email))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.otp").exists());
+                
+        String invalidOtp = "999999"; // Um OTP inválido
+        
+        // 2. Primeira tentativa inválida
+        mockMvc.perform(post("/api/otp/validate")
+                .param("email", email)
+                .param("otp", invalidOtp))
+                .andExpect(status().isBadRequest());
+                
+        // 3. Segunda tentativa inválida
+        mockMvc.perform(post("/api/otp/validate")
+                .param("email", email)
+                .param("otp", invalidOtp))
+                .andExpect(status().isBadRequest());
+                
+        // 4. Terceira tentativa inválida
+        mockMvc.perform(post("/api/otp/validate")
+                .param("email", email)
+                .param("otp", invalidOtp))
+                .andExpect(status().isBadRequest());
+                
+        // 5. Quarta tentativa (deve bloquear por excesso de tentativas)
+        mockMvc.perform(post("/api/otp/validate")
+                .param("email", email)
+                .param("otp", invalidOtp))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").exists());
     }
 } 

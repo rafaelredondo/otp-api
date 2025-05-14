@@ -4,6 +4,7 @@
 /Users/rredondo/java-project/src/test/java/com/otp/config/TestOtpConfig.java
 /Users/rredondo/java-project/src/test/java/com/otp/controller/OtpControllerExceptionTest.java
 /Users/rredondo/java-project/src/test/java/com/otp/service/OtpValidatorServiceTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/controller/OtpControllerTest.java
 /Users/rredondo/java-project/src/test/java/com/otp/config/TestRetryConfig.java
 /Users/rredondo/java-project/src/test/java/com/otp/config/TestConfig.java
 /Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/EmailFormatRuleTest.java
@@ -12,6 +13,7 @@
 /Users/rredondo/java-project/src/test/java/com/otp/notification/MockMessageQueueService.java
 /Users/rredondo/java-project/src/test/java/com/otp/service/OtpNotificationServiceTest.java
 /Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/OtpExpirationRuleTest.java
+/Users/rredondo/java-project/src/test/java/com/otp/endtoend/ExpiredOtpTest.java
 /Users/rredondo/java-project/src/test/java/com/otp/endtoend/OtpEndToEndTest.java
 /Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/OtpMatchRuleTest.java
 /Users/rredondo/java-project/src/test/java/com/otp/service/validator/rules/NotNullRuleTest.java

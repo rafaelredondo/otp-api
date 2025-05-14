@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.otp.service.OtpValidatorServiceTest" time="0.054" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.otp.endtoend.ExpiredOtpTest" time="2.056" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -65,16 +65,82 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldStoreNewOtpAndSaveExpiredOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.043"/>
-  <testcase name="shouldValidateCorrectOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldThrowTooManyAttemptsExceptionWhenMaxAttemptsExceeded" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldHandleCaseInsensitiveEmail" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldRevokeActiveOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldNotValidateExpiredOtpAfterNewOneGenerated" classname="com.otp.service.OtpValidatorServiceTest" time="0.002"/>
-  <testcase name="shouldTrackValidationAttempts" classname="com.otp.service.OtpValidatorServiceTest" time="0.001">
-    <system-out><![CDATA[18:07:16.354 [main] WARN  c.o.s.validator.rules.OtpLengthRule - Invalid OTP length: 5. Expected: 6
-18:07:16.354 [main] WARN  c.o.s.validator.rules.OtpLengthRule - Invalid OTP length: 5. Expected: 6
+  <testcase name="shouldFailValidationWhenOtpIsExpired" classname="com.otp.endtoend.ExpiredOtpTest" time="0.103">
+    <system-out><![CDATA[18:07:13.823 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.otp.endtoend.ExpiredOtpTest]: ExpiredOtpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:07:13.834 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.otp.Main for test class com.otp.endtoend.ExpiredOtpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+18:07:13.850 [main] INFO  com.otp.endtoend.ExpiredOtpTest - Starting ExpiredOtpTest using Java 21.0.7 with PID 27081 (started by rredondo in /Users/rredondo/java-project)
+18:07:13.850 [main] DEBUG com.otp.endtoend.ExpiredOtpTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+18:07:13.850 [main] INFO  com.otp.endtoend.ExpiredOtpTest - No active profile set, falling back to 1 default profile: "default"
+18:07:14.034 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+18:07:14.062 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 2 JPA repository interfaces.
+18:07:14.368 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+18:07:14.464 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:df592c46-c433-43ce-a63e-2cf99d511eed user=SA
+18:07:14.465 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+18:07:14.488 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+18:07:14.522 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+18:07:14.540 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+18:07:14.600 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+18:07:14.991 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+18:07:15.015 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+18:07:15.137 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+18:07:15.401 [main] DEBUG c.o.service.DefaultEncryptionService - Initializing DefaultEncryptionService
+18:07:15.615 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+18:07:15.720 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+18:07:15.721 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+18:07:15.721 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+18:07:15.743 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+18:07:15.754 [main] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: java.net.ConnectException: Connection refused
+18:07:15.765 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+18:07:15.766 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:606)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:727)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2249)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2222)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2202)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1960)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1924)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1480)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1322)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:549)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1249)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:652)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:621)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:568)
+	... 12 common frames omitted
+18:07:15.768 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+18:07:15.772 [main] INFO  com.otp.endtoend.ExpiredOtpTest - Started ExpiredOtpTest in 1.933 seconds (process running for 3.866)
+18:07:15.784 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: expired@teste.com
+18:07:15.784 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+18:07:15.785 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+18:07:15.785 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+18:07:15.785 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+18:07:15.852 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: expired@teste.com
+18:07:15.862 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: expired@teste.com
+18:07:15.873 [main] WARN  c.o.s.v.rules.OtpExpirationRule - OTP has expired after 30 minutes
+18:07:15.873 [main] ERROR c.o.exception.GlobalExceptionHandler - OTP validation error: OTP inválido para o email informado
 ]]></system-out>
   </testcase>
-  <testcase name="shouldThrowResourceNotFoundExceptionWhenNoActiveOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.002"/>
 </testsuite>

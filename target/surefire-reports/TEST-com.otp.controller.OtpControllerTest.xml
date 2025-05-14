@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.otp.service.OtpValidatorServiceTest" time="0.054" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.otp.controller.OtpControllerTest" time="0.041" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -49,7 +49,6 @@
     <property name="localRepository" value="/Users/rredondo/.m2/repository"/>
     <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="java.io.tmpdir" value="/var/folders/3v/_7w9kgxs66vgfxdtjj31zzyw0000gp/T/"/>
-    <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="21.0.7"/>
     <property name="user.dir" value="/Users/rredondo/java-project"/>
     <property name="os.arch" value="aarch64"/>
@@ -65,16 +64,19 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldStoreNewOtpAndSaveExpiredOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.043"/>
-  <testcase name="shouldValidateCorrectOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldThrowTooManyAttemptsExceptionWhenMaxAttemptsExceeded" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldHandleCaseInsensitiveEmail" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldRevokeActiveOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.001"/>
-  <testcase name="shouldNotValidateExpiredOtpAfterNewOneGenerated" classname="com.otp.service.OtpValidatorServiceTest" time="0.002"/>
-  <testcase name="shouldTrackValidationAttempts" classname="com.otp.service.OtpValidatorServiceTest" time="0.001">
-    <system-out><![CDATA[18:07:16.354 [main] WARN  c.o.s.validator.rules.OtpLengthRule - Invalid OTP length: 5. Expected: 6
-18:07:16.354 [main] WARN  c.o.s.validator.rules.OtpLengthRule - Invalid OTP length: 5. Expected: 6
+  <testcase name="shouldGenerateOtpSuccessfully" classname="com.otp.controller.OtpControllerTest" time="0.013">
+    <system-out><![CDATA[18:07:13.779 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.otp.controller.OtpControllerTest]: OtpControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:07:13.784 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.otp.Main for test class com.otp.controller.OtpControllerTest
 ]]></system-out>
   </testcase>
-  <testcase name="shouldThrowResourceNotFoundExceptionWhenNoActiveOtp" classname="com.otp.service.OtpValidatorServiceTest" time="0.002"/>
+  <testcase name="shouldRejectInvalidEmailFormat" classname="com.otp.controller.OtpControllerTest" time="0.005">
+    <system-out><![CDATA[18:07:13.803 [main] ERROR c.o.exception.GlobalExceptionHandler - Constraint violation: generateOtp.email: Invalid email format
+]]></system-out>
+  </testcase>
+  <testcase name="shouldValidateOtpSuccessfully" classname="com.otp.controller.OtpControllerTest" time="0.005"/>
+  <testcase name="shouldRejectEmptyOtp" classname="com.otp.controller.OtpControllerTest" time="0.004">
+    <system-out><![CDATA[18:07:13.813 [main] ERROR c.o.exception.GlobalExceptionHandler - Constraint violation: validateOtp.otp: OTP cannot be empty
+]]></system-out>
+  </testcase>
+  <testcase name="shouldRevokeOtpSuccessfully" classname="com.otp.controller.OtpControllerTest" time="0.004"/>
 </testsuite>

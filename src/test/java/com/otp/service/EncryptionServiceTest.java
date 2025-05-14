@@ -43,4 +43,36 @@ public class EncryptionServiceTest {
         assertNotNull(key, "Chave gerada não deve ser nula");
         assertTrue(key.length() > 0, "Chave gerada não deve ser vazia");
     }
+    
+    @Test
+    @DisplayName("Deve decriptar corretamente um valor encriptado")
+    void shouldDecryptEncryptedValue() {
+        // Given
+        String original = "123456";
+        
+        // When
+        String encrypted = encryptionService.encrypt(original);
+        String decrypted = encryptionService.decrypt(encrypted);
+        
+        // Then
+        assertEquals(original, decrypted, "O valor decriptado deve ser igual ao original");
+    }
+    
+    @Test
+    @DisplayName("Deve lançar exceção quando o valor a encriptar é nulo")
+    void shouldThrowExceptionWhenValueToEncryptIsNull() {
+        // Then
+        assertThrows(RuntimeException.class, () -> {
+            encryptionService.encrypt(null);
+        });
+    }
+    
+    @Test
+    @DisplayName("Deve lançar exceção quando o valor a decriptar é nulo")
+    void shouldThrowExceptionWhenValueToDecryptIsNull() {
+        // Then
+        assertThrows(RuntimeException.class, () -> {
+            encryptionService.decrypt(null);
+        });
+    }
 } 

@@ -1,20 +1,20 @@
 package com.otp.controller;
 
-import com.otp.config.TestOtpConfig;
 import com.otp.exception.OtpValidationException;
 import com.otp.exception.ResourceNotFoundException;
 import com.otp.exception.TooManyAttemptsException;
+import com.otp.model.OtpResponse;
 import com.otp.service.OtpService;
 import com.otp.exception.GlobalExceptionHandler;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -22,23 +22,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(OtpController.class)
+@Import(GlobalExceptionHandler.class)
 public class OtpControllerExceptionTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private OtpService otpService;
-
-    @InjectMocks
-    private OtpController otpController;
-
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(otpController)
-                .setControllerAdvice(new GlobalExceptionHandler())
-                .build();
-    }
 
     @Test
     void handleOtpValidationException() throws Exception {
@@ -83,5 +76,37 @@ public class OtpControllerExceptionTest {
                 .andExpect(status().isTooManyRequests())
                 .andExpect(jsonPath("$.error").value("Too Many Attempts"))
                 .andExpect(jsonPath("$.message").value("Too many attempts"));
+    }
+    
+    @Test
+    void handleInvalidEmailFormat() throws Exception {
+        // Given
+        String invalidEmail = "invalid-email";
+        
+        // Mock service methods to avoid NullPointerException
+        when(otpService.generateOtp(anyString())).thenReturn(new OtpResponse("123456", true));
+        when(otpService.validateOtp(anyString(), anyString())).thenReturn(true);
+        when(otpService.revokeOtp(anyString(), anyString())).thenReturn(true);
+        
+        // For all endpoints that require an email
+        // Test generate
+        mockMvc.perform(post("/api/otp/generate")
+                        .param("email", invalidEmail))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Validation Error"));
+                
+        // Test validate
+        mockMvc.perform(post("/api/otp/validate")
+                        .param("email", invalidEmail)
+                        .param("otp", "123456"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Validation Error"));
+                
+        // Test revoke
+        mockMvc.perform(post("/api/otp/revoke")
+                        .param("email", invalidEmail)
+                        .param("reason", "testing"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Validation Error"));
     }
 } 
