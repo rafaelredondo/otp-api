@@ -18,10 +18,8 @@
 /Users/rredondo/java-project/src/main/java/com/otp/model/ErrorResponse.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/EncryptionService.java
 /Users/rredondo/java-project/src/main/java/com/otp/exception/OtpGenerationException.java
-/Users/rredondo/java-project/src/main/java/com/otp/model/OtpData.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/validator/OtpValidationRule.java
 /Users/rredondo/java-project/src/main/java/com/otp/listener/OtpNotificationListener.java
-/Users/rredondo/java-project/src/main/java/com/otp/notification/SmsNotificationSender.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/OtpValidatorService.java
 /Users/rredondo/java-project/src/main/java/com/otp/exception/TooManyAttemptsException.java
 /Users/rredondo/java-project/src/main/java/com/otp/repository/OtpAttemptRepository.java

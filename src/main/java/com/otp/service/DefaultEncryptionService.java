@@ -17,62 +17,43 @@ public class DefaultEncryptionService implements EncryptionService {
     private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
     private static final byte[] FIXED_IV = new byte[16]; // IV fixo para garantir que o mesmo valor gere o mesmo resultado
     
-    @Value("${encryption.key.secret}")
+    @Value("${encryption.key:}")
     private String secretKey;
-
-    /**
-     * Valida a chave de criptografia.
-     * @param throwException Se deve lançar exceção em caso de chave inválida
-     * @return true se a chave for válida, false caso contrário
-     */
-    private boolean validateKey(boolean throwException) {
-        if (secretKey == null || secretKey.trim().isEmpty()) {
-            logger.error("Encryption key is not configured");
-            if (throwException) {
-                throw new IllegalStateException("Encryption key is not configured");
-            }
-            return false;
-        }
-        
-        try {
-            byte[] keyBytes = Base64.getDecoder().decode(secretKey.trim());
-            logger.debug("Key decoded successfully, length: {} bytes", keyBytes.length);
-            
-            if (keyBytes.length != 32) {
-                logger.error("Invalid key length: {} bytes (expected 32 bytes)", keyBytes.length);
-                if (throwException) {
-                    throw new IllegalArgumentException("Key must be exactly 32 bytes (256 bits) when decoded");
-                }
-                return false;
-            }
-            return true;
-        } catch (IllegalArgumentException e) {
-            logger.error("Invalid Base64 key format: {}", e.getMessage());
-            if (throwException) {
-                throw new IllegalStateException("Invalid encryption key format", e);
-            }
-            return false;
-        }
-    }
 
     @PostConstruct
     public void init() {
         logger.debug("Initializing DefaultEncryptionService");
-        if (secretKey == null) {
-            logger.error("Encryption key is null after initialization");
+        // Não valida a chave na inicialização, só quando for usar
+        // A chave será validada antes de cada operação de encriptação/decriptação
+    }
+
+    /**
+     * Valida a chave de encriptação.
+     * 
+     * @throws IllegalStateException se a chave de encriptação não estiver configurada ou 
+     *         não tiver o formato Base64 válido
+     */
+    private void validateKey() {
+        if (secretKey == null || secretKey.trim().isEmpty()) {
+            logger.error("Encryption key is not configured");
             throw new IllegalStateException("Encryption key is not configured");
         }
+        
         logger.debug("Encryption key loaded successfully, length: {}", secretKey.length());
         
         try {
-            if (!validateKey(false)) {
-                String newKey = generateNewKey();
-                logger.info("Generated new valid key: {}", newKey);
-                throw new IllegalStateException("Invalid encryption key. Please use this key: " + newKey);
+            byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+            
+            // Verifica se a chave tem o tamanho esperado para AES-256
+            if (keyBytes.length != 32) {
+                logger.error("Invalid key length: {}. Expected 32 bytes for AES-256", keyBytes.length);
+                throw new IllegalStateException("Invalid key length. Expected 32 bytes for AES-256");
             }
+            
+            logger.debug("Key decoded successfully, length: {} bytes", keyBytes.length);
         } catch (IllegalArgumentException e) {
-            logger.error("Invalid Base64 key format: {}", e.getMessage());
-            throw new IllegalStateException("Invalid encryption key format", e);
+            logger.error("Invalid Base64 key", e);
+            throw new IllegalStateException("Invalid Base64 key", e);
         }
     }
 
@@ -86,29 +67,63 @@ public class DefaultEncryptionService implements EncryptionService {
                 throw new IllegalArgumentException("Value to encrypt cannot be null");
             }
             
-            // Valida a chave antes de prosseguir
-            validateKey(true);
+            validateKey();
 
+            byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
+            
             Cipher cipher = Cipher.getInstance(ALGORITHM);
-            SecretKeySpec keySpec = new SecretKeySpec(Base64.getDecoder().decode(secretKey.trim()), "AES");
-            IvParameterSpec ivSpec = new IvParameterSpec(FIXED_IV);
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(FIXED_IV);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
             
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-            byte[] encrypted = cipher.doFinal(value.getBytes());
+            byte[] encryptedBytes = cipher.doFinal(value.getBytes("UTF-8"));
+            String encryptedValue = Base64.getEncoder().encodeToString(encryptedBytes);
             
-            String result = Base64.getEncoder().encodeToString(encrypted);
             logger.debug("Encryption completed successfully");
-            return result;
+            return encryptedValue;
         } catch (Exception e) {
-            logger.error("Error during encryption: {}", e.getMessage(), e);
-            throw new RuntimeException("Error encrypting value: " + e.getMessage(), e);
+            logger.error("Error during encryption", e);
+            throw new RuntimeException("Error during encryption", e);
         }
     }
 
     @Override
-    public String generateNewKey() {
-        byte[] key = new byte[32];
-        new SecureRandom().nextBytes(key);
-        return Base64.getEncoder().encodeToString(key);
+    public String decrypt(String encryptedValue) {
+        try {
+            if (encryptedValue == null) {
+                logger.error("Value to decrypt is null");
+                throw new IllegalArgumentException("Value to decrypt cannot be null");
+            }
+            
+            validateKey();
+            
+            byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+            SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
+            
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(FIXED_IV);
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+            
+            byte[] decodedEncryptedBytes = Base64.getDecoder().decode(encryptedValue);
+            byte[] decryptedBytes = cipher.doFinal(decodedEncryptedBytes);
+            
+            return new String(decryptedBytes, "UTF-8");
+        } catch (Exception e) {
+            logger.error("Error during decryption", e);
+            throw new RuntimeException("Error during decryption", e);
+        }
+    }
+
+    @Override
+    public String generateValidKey() {
+        try {
+            SecureRandom random = SecureRandom.getInstanceStrong();
+            byte[] key = new byte[32]; // 256 bits para AES-256
+            random.nextBytes(key);
+            return Base64.getEncoder().encodeToString(key);
+        } catch (Exception e) {
+            logger.error("Error generating encryption key", e);
+            throw new RuntimeException("Error generating encryption key", e);
+        }
     }
 } 

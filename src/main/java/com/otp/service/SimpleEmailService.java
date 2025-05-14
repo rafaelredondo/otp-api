@@ -10,10 +10,8 @@ public class SimpleEmailService implements EmailService {
 
     @Override
     public void sendEmail(String to, String subject, String body) {
-        // Implementação de simulação que apenas registra o envio no log
-        logger.info("Enviando email para: {}", to);
-        logger.info("Assunto: {}", subject);
-        logger.info("Conteúdo: {}", body);
-        logger.info("Email enviado com sucesso!");
+        // Implementação de simulação que apenas registra o envio no log usando um único log para melhorar a performance
+        logger.info("Enviando email para: {}, Assunto: {}, Conteúdo: {}, Status: Email enviado com sucesso!", 
+                   to, subject, body);
     }
 } 

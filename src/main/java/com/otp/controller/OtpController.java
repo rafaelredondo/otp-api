@@ -1,6 +1,5 @@
 package com.otp.controller;
 
-import com.otp.config.OtpConfig;
 import com.otp.model.ApiResponse;
 import com.otp.model.OtpResponse;
 import com.otp.service.OtpService;
@@ -16,11 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class OtpController {
     private final OtpService otpService;
-    private final OtpConfig otpConfig;
 
-    public OtpController(OtpService otpService, OtpConfig otpConfig) {
+    public OtpController(OtpService otpService) {
         this.otpService = otpService;
-        this.otpConfig = otpConfig;
     }
 
     @PostMapping("/generate")
