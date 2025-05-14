@@ -78,4 +78,34 @@ public class OtpEndToEndTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("OTP validated successfully"));
     }
+    
+    @Test
+    void shouldFailValidationWhenOtpIsRevoked() throws Exception {
+        String email = "exemplo@teste.com";
+        String reason = "Security concern";
+        when(notificationService.sendOtpNotification(anyString(), anyString())).thenReturn(true);
+
+        // 1. Gerar OTP
+        String response = mockMvc.perform(post("/api/otp/generate")
+                .param("email", email))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.otp").exists())
+                .andReturn().getResponse().getContentAsString();
+        String otp = response.replaceAll("\\D", ""); // extrai apenas os dígitos do OTP
+
+        // 2. Revogar OTP
+        mockMvc.perform(post("/api/otp/revoke")
+                .param("email", email)
+                .param("reason", reason))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("OTP revoked successfully"));
+
+        // 3. Tentar validar o OTP revogado (deve falhar)
+        mockMvc.perform(post("/api/otp/validate")
+                .param("email", email)
+                .param("otp", otp))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Validation Error"))
+                .andExpect(jsonPath("$.message").value("Error validating OTP for email: " + email));
+    }
 } 
