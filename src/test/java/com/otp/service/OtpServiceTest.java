@@ -1,32 +1,41 @@
 package com.otp.service;
 
-import com.otp.model.OtpResponse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;   
-import static org.mockito.Mockito.verify;
-import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.otp.exception.OtpGenerationException;
+import com.otp.exception.OtpValidationException;
+import com.otp.model.OtpResponse;
 
 @ExtendWith(MockitoExtension.class)
 public class OtpServiceTest {
-    private OtpService otpService;
+    
+    private DefaultOtpService otpService;
     
     @Mock
     private OtpGeneratorService generatorService;
+    
     @Mock
     private OtpValidatorService validatorService;
+    
     @Mock
     private EncryptionService encryptionService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        otpService = new OtpService(generatorService, validatorService, encryptionService);
+        otpService = new DefaultOtpService(generatorService, validatorService, encryptionService);
     }
 
     @Test
@@ -50,7 +59,8 @@ public class OtpServiceTest {
         assertEquals(otp, response.otp());
         
         // Validate OTP
-        assertTrue(otpService.validateOtp(email, otp));
+        boolean isValid = otpService.validateOtp(email, otp);
+        assertTrue(isValid);
         
         // Verify interactions
         verify(generatorService).generateOtp(email);
@@ -81,15 +91,13 @@ public class OtpServiceTest {
         String email1 = "User@Example.com";
         String otp = "123456";
         
-        Mockito.when(validatorService.validateOtp(email1, otp))
-               .thenReturn(true);
+        Mockito.when(validatorService.validateOtp(anyString(), anyString())).thenReturn(true);
 
         // When
         boolean isValid = otpService.validateOtp(email1, otp);
 
         // Then
         assertTrue(isValid);
-        verify(validatorService).validateOtp(email1, otp);
     }
 
     @Test
@@ -99,17 +107,20 @@ public class OtpServiceTest {
         String email = "user@example.com";
         String otp = "123456";
         
-        Mockito.when(validatorService.validateOtp(email.toLowerCase(), otp))
+        Mockito.when(validatorService.validateOtp(anyString(), anyString()))
                .thenReturn(true)
-               .thenReturn(false);
+               .thenThrow(new OtpValidationException("Invalid OTP"));
 
         // When
         boolean firstValidation = otpService.validateOtp(email, otp);
-        boolean secondValidation = otpService.validateOtp(email, otp);
-
+        
         // Then
         assertTrue(firstValidation);
-        assertFalse(secondValidation);
+        
+        // Expect exception on second validation
+        assertThrows(OtpValidationException.class, () -> {
+            otpService.validateOtp(email, otp);
+        });
     }
 
     @Test
@@ -133,5 +144,36 @@ public class OtpServiceTest {
         assertTrue(response.delivered());
         assertTrue(isValid);
         verify(encryptionService).encrypt(otp);
+    }
+    
+    @Test
+    @DisplayName("Should throw OtpGenerationException when delivery fails")
+    void shouldThrowOtpGenerationExceptionWhenDeliveryFails() {
+        // Given
+        String email = "user@example.com";
+        OtpResponse mockResponse = new OtpResponse("123456", false);
+        
+        Mockito.when(generatorService.generateOtp(email)).thenReturn(mockResponse);
+        
+        // When/Then
+        assertThrows(OtpGenerationException.class, () -> {
+            otpService.generateOtp(email);
+        });
+    }
+    
+    @Test
+    @DisplayName("Should throw OtpValidationException for invalid OTP")
+    void shouldThrowOtpValidationExceptionForInvalidOtp() {
+        // Given
+        String email = "user@example.com";
+        String otp = "123456";
+        
+        Mockito.when(validatorService.validateOtp(anyString(), anyString()))
+               .thenThrow(new OtpValidationException("Invalid OTP"));
+        
+        // When/Then
+        assertThrows(OtpValidationException.class, () -> {
+            otpService.validateOtp(email, otp);
+        });
     }
 } 

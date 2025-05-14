@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.otp.service.EncryptionService;
+import com.otp.service.DefaultEncryptionService;
 
 @Component
 public class OtpMatchRule implements OtpValidationRule {
@@ -23,12 +24,19 @@ public class OtpMatchRule implements OtpValidationRule {
             return false;
         }
         
-        String decryptedStoredOtp = encryptionService.decrypt(context.storedOtp());
-        boolean isValid = constantTimeEquals(decryptedStoredOtp, context.providedOtp());
-        if (!isValid) {
-            logger.warn("OTP does not match");
+        try {
+            // Use encrypt for OTP validation to ensure consistent encryption
+            String encryptedProvidedOtp = encryptionService.encrypt(context.providedOtp());
+            boolean isValid = constantTimeEquals(encryptedProvidedOtp, context.storedOtp());
+            
+            if (!isValid) {
+                logger.warn("OTP does not match");
+            }
+            return isValid;
+        } catch (Exception e) {
+            logger.error("Error during OTP validation: {}", e.getMessage());
+            return false;
         }
-        return isValid;
     }
 
     private boolean constantTimeEquals(String a, String b) {

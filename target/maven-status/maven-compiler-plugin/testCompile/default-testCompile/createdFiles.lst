@@ -1,8 +1,0 @@
-com/otp/service/validator/rules/OtpExpirationRuleTest.class
-com/otp/service/OtpValidatorServiceTest.class
-com/otp/service/validator/rules/NotNullRuleTest.class
-com/otp/service/validator/rules/AttemptLimitRuleTest.class
-com/otp/service/validator/rules/OtpMatchRuleTest.class
-com/otp/service/OtpGeneratorServiceTest.class
-com/otp/service/validator/rules/EmailFormatRuleTest.class
-com/otp/service/validator/rules/OtpLengthRuleTest.class

@@ -1,5 +1,6 @@
 package com.otp.service.validator.rules;
 
+import com.otp.config.OtpConfig;
 import com.otp.service.validator.OtpValidationRule;
 import com.otp.service.validator.ValidationContext;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,12 @@ import java.time.Instant;
 @Component
 public class OtpExpirationRule implements OtpValidationRule {
     private static final Logger logger = LoggerFactory.getLogger(OtpExpirationRule.class);
-    private static final int OTP_VALIDITY_MINUTES = 5;
+    
+    private final OtpConfig otpConfig;
+    
+    public OtpExpirationRule(OtpConfig otpConfig) {
+        this.otpConfig = otpConfig;
+    }
 
     @Override
     public boolean validate(ValidationContext context) {
@@ -19,8 +25,10 @@ public class OtpExpirationRule implements OtpValidationRule {
             return false;
         }
         
-        if (Instant.now().isAfter(context.timestamp().plusSeconds(OTP_VALIDITY_MINUTES * 60))) {
-            logger.warn("OTP has expired");
+        int expirationMinutes = otpConfig.getValidation().getExpirationMinutes();
+        
+        if (Instant.now().isAfter(context.timestamp().plusSeconds(expirationMinutes * 60))) {
+            logger.warn("OTP has expired after {} minutes", expirationMinutes);
             return false;
         }
         return true;

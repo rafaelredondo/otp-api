@@ -1,10 +1,11 @@
 package com.otp.controller;
 
+import com.otp.config.OtpConfig;
 import com.otp.model.ApiResponse;
 import com.otp.model.OtpResponse;
 import com.otp.service.OtpService;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/otp")
 @Validated
+@CrossOrigin("*")
 public class OtpController {
     private final OtpService otpService;
+    private final OtpConfig otpConfig;
 
-    public OtpController(OtpService otpService) {
+    public OtpController(OtpService otpService, OtpConfig otpConfig) {
         this.otpService = otpService;
+        this.otpConfig = otpConfig;
     }
 
     @PostMapping("/generate")
@@ -25,12 +29,7 @@ public class OtpController {
             @Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email format")
             String email) {
         OtpResponse response = otpService.generateOtp(email);
-        if (response.delivered()) {
-            return ResponseEntity.ok(new ApiResponse(response.otp(), "OTP sent successfully"));
-        } else {
-            return ResponseEntity.internalServerError()
-                .body(new ApiResponse(null, "Failed to send OTP. Please try again later."));
-        }
+        return ResponseEntity.ok(new ApiResponse(response.otp(), "OTP sent successfully"));
     }
 
     @PostMapping("/validate")
@@ -39,13 +38,22 @@ public class OtpController {
             @Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email format")
             String email,
             @RequestParam 
-            @Pattern(regexp = "^[0-9]{6}$", message = "OTP must be 6 digits")
+            @NotBlank(message = "OTP cannot be empty")
             String otp) {
-        boolean isValid = otpService.validateOtp(email, otp);
-        if (isValid) {
-            return ResponseEntity.ok(new ApiResponse(null, "OTP validated successfully"));
-        } else {
-            return ResponseEntity.badRequest().body(new ApiResponse(null, "Invalid OTP"));
+        boolean valid = otpService.validateOtp(email, otp);
+        if (!valid) {
+            throw new com.otp.exception.OtpValidationException("OTP inválido para o email informado");
         }
+        return ResponseEntity.ok(new ApiResponse(null, "OTP validated successfully"));
+    }
+
+    @PostMapping("/revoke")
+    public ResponseEntity<ApiResponse> revokeOtp(
+            @RequestParam 
+            @Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email format")
+            String email,
+            @RequestParam String reason) {
+        otpService.revokeOtp(email, reason);
+        return ResponseEntity.ok(new ApiResponse(null, "OTP revoked successfully"));
     }
 } 

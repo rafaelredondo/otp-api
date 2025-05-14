@@ -4,13 +4,12 @@ import com.otp.model.OtpNotificationMessage;
 import com.otp.notification.NotificationSenderFactory;
 import com.otp.notification.NotificationSender;
 import com.otp.notification.NotificationChannel;
+import com.otp.notification.MessageQueueService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -26,14 +25,14 @@ class OtpNotificationServiceTest {
     private NotificationSender notificationSender;
 
     @Mock
-    private RabbitTemplate rabbitTemplate;
+    private MessageQueueService messageQueueService;
 
-    @InjectMocks
-    private OtpNotificationService otpNotificationService;
+    private DefaultOtpNotificationService otpNotificationService;
 
     @BeforeEach
     void setUp() {
         lenient().when(senderFactory.getSender(NotificationChannel.EMAIL)).thenReturn(notificationSender);
+        otpNotificationService = new DefaultOtpNotificationService(messageQueueService, senderFactory);
     }
 
     @Test
@@ -56,11 +55,11 @@ class OtpNotificationServiceTest {
     @Test
     void shouldQueueNotificationSuccessfully() {
         OtpNotificationMessage message = new OtpNotificationMessage("user@email.com", "123456", 3);
-        doNothing().when(rabbitTemplate).convertAndSend(anyString(), eq(message));
+        doNothing().when(messageQueueService).sendToQueue(anyString(), eq(message));
 
         otpNotificationService.processOtpNotification(message);
 
-        verify(rabbitTemplate).convertAndSend(anyString(), eq(message));
+        verify(messageQueueService).sendToQueue(anyString(), eq(message));
     }
 
     @Test
@@ -68,10 +67,10 @@ class OtpNotificationServiceTest {
         OtpNotificationMessage message = new OtpNotificationMessage("user@email.com", "123456", 3);
         Exception ex = new Exception("Falha");
 
-        doNothing().when(rabbitTemplate).convertAndSend(anyString(), eq(message));
+        doNothing().when(messageQueueService).sendToDLQ(anyString(), eq(message));
 
         otpNotificationService.recoverOtpNotification(ex, message);
 
-        verify(rabbitTemplate).convertAndSend(anyString(), eq(message));
+        verify(messageQueueService).sendToDLQ(anyString(), eq(message));
     }
 } 

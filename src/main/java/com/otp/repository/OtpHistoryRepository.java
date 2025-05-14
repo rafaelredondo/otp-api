@@ -10,5 +10,5 @@ import java.util.List;
 public interface OtpHistoryRepository extends JpaRepository<OtpHistory, Long> {
     Optional<OtpHistory> findByEmailAndStatus(String email, OtpStatus status);
     List<OtpHistory> findByEmailAndCreatedAtAfter(String email, Instant since);
-    Optional<OtpHistory> findByEmailAndOtpAndStatus(String email, String otp, OtpStatus status);
+    Optional<OtpHistory> findByEmailAndEncryptedOtpAndStatus(String email, String encryptedOtp, OtpStatus status);
 } 

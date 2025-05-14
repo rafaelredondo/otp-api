@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Este projeto é configurado para ser compatível com Java 17,
+  mas as dependências são configuradas para suportar ambiente 
+  de execução com Java 23 (usado no ambiente de desenvolvimento).
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -16,8 +21,12 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <!-- Versão mínima de compilação do Java (compatibilidade) -->
         <java.version>17</java.version>
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
+        <!-- Versões mais recentes do Mockito e Byte Buddy com suporte a Java 23 -->
+        <mockito.version>5.12.0</mockito.version>
+        <byte-buddy.version>1.14.15</byte-buddy.version>
     </properties>
 
     <dependencies>
@@ -48,6 +57,37 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!-- Updated Mockito for Java 23 support -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${byte-buddy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>${byte-buddy.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Add these dependencies -->
@@ -64,10 +104,6 @@
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
             <version>3.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.vladimir-bukhtoyarov</groupId>
@@ -93,6 +129,9 @@
                 <configuration>
                     <argLine>
                         -Dnet.bytebuddy.experimental=true
+                        -XX:+EnableDynamicAgentLoading
+                        -Dmockito.mock.serializable=false
+                        -Dmockito.core.defaultMockMaker=mock-maker-default
                     </argLine>
                 </configuration>
             </plugin>

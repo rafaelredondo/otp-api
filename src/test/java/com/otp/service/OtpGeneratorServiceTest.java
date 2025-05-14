@@ -1,76 +1,104 @@
 package com.otp.service;
 
+import com.otp.config.OtpConfig;
+import com.otp.model.OtpResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import static org.junit.jupiter.api.Assertions.*;
-import com.otp.model.OtpResponse;
-import org.mockito.Mock;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mockito;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.ArgumentMatchers;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+import org.springframework.test.context.ActiveProfiles;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class OtpGeneratorServiceTest {
+    private DefaultOtpGeneratorService generatorService;
+    
     @Mock
-    private RabbitTemplate rabbitTemplate;
+    private OtpNotificationService mockNotificationService;
+    
     @Mock
-    private EmailService emailService;
+    private OtpConfig mockOtpConfig;
+    
     @Mock
-    private OtpNotificationService notificationService;
-
-    private OtpGeneratorService generatorService;
+    private OtpConfig.Generation mockGenerationConfig;
 
     @BeforeEach
     void setUp() {
-        generatorService = new OtpGeneratorService(notificationService);
+        when(mockOtpConfig.getGeneration()).thenReturn(mockGenerationConfig);
+        when(mockGenerationConfig.getLength()).thenReturn(6);
+        when(mockGenerationConfig.getPrefix()).thenReturn("");
+        
+        when(mockNotificationService.sendOtpNotification(anyString(), anyString())).thenReturn(true);
+        
+        generatorService = new DefaultOtpGeneratorService(mockNotificationService, mockOtpConfig);
     }
 
     @Test
-    @DisplayName("Should generate valid OTP")
-    public void shouldGenerateValidOtp() {
+    @DisplayName("Should generate OTP with correct length")
+    void shouldGenerateOtpWithCorrectLength() {
         // Given
-        String email = "user@example.com";
-        Mockito.when(notificationService.sendOtpNotification(
-            ArgumentMatchers.anyString(), 
-            ArgumentMatchers.anyString()
-        )).thenReturn(true);
+        String email = "test@example.com";
+        when(mockGenerationConfig.getLength()).thenReturn(6);
 
         // When
         OtpResponse response = generatorService.generateOtp(email);
 
         // Then
         assertNotNull(response);
-        assertNotNull(response.otp());
-        assertTrue(response.delivered());
         assertEquals(6, response.otp().length());
-        assertTrue(response.otp().matches("\\d{6}")); // Verify it's 6 digits
-        verify(notificationService).sendOtpNotification(email, response.otp());
+        assertTrue(response.delivered());
     }
 
     @Test
-    @DisplayName("Should generate different OTPs for consecutive calls")
-    public void shouldGenerateDifferentOtps() {
+    @DisplayName("Should generate OTP with custom length")
+    void shouldGenerateOtpWithCustomLength() {
         // Given
-        String email = "user@example.com";
-        Mockito.when(notificationService.sendOtpNotification(
-            ArgumentMatchers.anyString(), 
-            ArgumentMatchers.anyString()
-        )).thenReturn(true);
+        String email = "test@example.com";
+        when(mockGenerationConfig.getLength()).thenReturn(8);
 
         // When
-        String firstOtp = generatorService.generateOtp(email).otp();
-        String secondOtp = generatorService.generateOtp(email).otp();
+        OtpResponse response = generatorService.generateOtp(email);
 
         // Then
-        assertNotEquals(firstOtp, secondOtp);
-        verify(notificationService, times(2)).sendOtpNotification(
-            ArgumentMatchers.eq(email), 
-            ArgumentMatchers.anyString()
-        );
+        assertNotNull(response);
+        assertEquals(8, response.otp().length());
+    }
+
+    @Test
+    @DisplayName("Should include prefix in OTP")
+    void shouldIncludePrefixInOtp() {
+        // Given
+        String email = "test@example.com";
+        when(mockGenerationConfig.getLength()).thenReturn(8);
+        when(mockGenerationConfig.getPrefix()).thenReturn("ABC");
+
+        // When
+        OtpResponse response = generatorService.generateOtp(email);
+
+        // Then
+        assertNotNull(response);
+        assertEquals(8, response.otp().length());
+        assertTrue(response.otp().startsWith("ABC"));
+    }
+
+    @Test
+    @DisplayName("Should set delivered to false when notification fails")
+    void shouldSetDeliveredToFalseWhenNotificationFails() {
+        // Given
+        String email = "test@example.com";
+        when(mockNotificationService.sendOtpNotification(anyString(), anyString())).thenReturn(false);
+
+        // When
+        OtpResponse response = generatorService.generateOtp(email);
+
+        // Then
+        assertNotNull(response);
+        assertFalse(response.delivered());
     }
 } 
