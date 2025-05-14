@@ -20,10 +20,39 @@ public class DefaultEncryptionService implements EncryptionService {
     @Value("${encryption.key.secret}")
     private String secretKey;
 
-    public static String generateValidKey() {
-        byte[] key = new byte[32]; // 256 bits
-        new SecureRandom().nextBytes(key);
-        return Base64.getEncoder().encodeToString(key);
+    /**
+     * Valida a chave de criptografia.
+     * @param throwException Se deve lançar exceção em caso de chave inválida
+     * @return true se a chave for válida, false caso contrário
+     */
+    private boolean validateKey(boolean throwException) {
+        if (secretKey == null || secretKey.trim().isEmpty()) {
+            logger.error("Encryption key is not configured");
+            if (throwException) {
+                throw new IllegalStateException("Encryption key is not configured");
+            }
+            return false;
+        }
+        
+        try {
+            byte[] keyBytes = Base64.getDecoder().decode(secretKey.trim());
+            logger.debug("Key decoded successfully, length: {} bytes", keyBytes.length);
+            
+            if (keyBytes.length != 32) {
+                logger.error("Invalid key length: {} bytes (expected 32 bytes)", keyBytes.length);
+                if (throwException) {
+                    throw new IllegalArgumentException("Key must be exactly 32 bytes (256 bits) when decoded");
+                }
+                return false;
+            }
+            return true;
+        } catch (IllegalArgumentException e) {
+            logger.error("Invalid Base64 key format: {}", e.getMessage());
+            if (throwException) {
+                throw new IllegalStateException("Invalid encryption key format", e);
+            }
+            return false;
+        }
     }
 
     @PostConstruct
@@ -36,13 +65,10 @@ public class DefaultEncryptionService implements EncryptionService {
         logger.debug("Encryption key loaded successfully, length: {}", secretKey.length());
         
         try {
-            byte[] keyBytes = Base64.getDecoder().decode(secretKey.trim());
-            logger.debug("Key decoded successfully, length: {} bytes", keyBytes.length);
-            if (keyBytes.length != 32) {
-                logger.error("Invalid key length: {} bytes (expected 32 bytes)", keyBytes.length);
-                String newKey = generateValidKey();
+            if (!validateKey(false)) {
+                String newKey = generateNewKey();
                 logger.info("Generated new valid key: {}", newKey);
-                throw new IllegalStateException("Invalid encryption key length. Please use this key: " + newKey);
+                throw new IllegalStateException("Invalid encryption key. Please use this key: " + newKey);
             }
         } catch (IllegalArgumentException e) {
             logger.error("Invalid Base64 key format: {}", e.getMessage());
@@ -60,24 +86,8 @@ public class DefaultEncryptionService implements EncryptionService {
                 throw new IllegalArgumentException("Value to encrypt cannot be null");
             }
             
-            if (secretKey == null || secretKey.trim().isEmpty()) {
-                logger.error("Encryption key is not configured");
-                throw new IllegalStateException("Encryption key is not configured");
-            }
-
-            // Validate Base64 format
-            try {
-                byte[] keyBytes = Base64.getDecoder().decode(secretKey.trim());
-                logger.debug("Key decoded successfully, length: {} bytes", keyBytes.length);
-                
-                if (keyBytes.length != 32) {
-                    logger.error("Invalid key length: {} bytes (expected 32 bytes)", keyBytes.length);
-                    throw new IllegalArgumentException("Key must be exactly 32 bytes (256 bits) when decoded");
-                }
-            } catch (IllegalArgumentException e) {
-                logger.error("Invalid Base64 key format: {}", e.getMessage());
-                throw new IllegalStateException("Invalid encryption key format", e);
-            }
+            // Valida a chave antes de prosseguir
+            validateKey(true);
 
             Cipher cipher = Cipher.getInstance(ALGORITHM);
             SecretKeySpec keySpec = new SecretKeySpec(Base64.getDecoder().decode(secretKey.trim()), "AES");
@@ -92,31 +102,6 @@ public class DefaultEncryptionService implements EncryptionService {
         } catch (Exception e) {
             logger.error("Error during encryption: {}", e.getMessage(), e);
             throw new RuntimeException("Error encrypting value: " + e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Método específico para criptografar OTPs usando um IV fixo.
-     * Isso permite que o mesmo OTP gere o mesmo valor criptografado.
-     */
-    public String encryptOtp(String otp) {
-        try {
-            if (otp == null) {
-                throw new IllegalArgumentException("OTP cannot be null");
-            }
-            
-            Cipher cipher = Cipher.getInstance(ALGORITHM);
-            SecretKeySpec keySpec = new SecretKeySpec(Base64.getDecoder().decode(secretKey.trim()), "AES");
-            IvParameterSpec ivSpec = new IvParameterSpec(FIXED_IV);
-            
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
-            byte[] encrypted = cipher.doFinal(otp.getBytes());
-            
-            // Para OTPs, não precisamos incluir o IV no resultado pois é fixo
-            return Base64.getEncoder().encodeToString(encrypted);
-        } catch (Exception e) {
-            logger.error("Error during OTP encryption: {}", e.getMessage(), e);
-            throw new RuntimeException("Error encrypting OTP", e);
         }
     }
 

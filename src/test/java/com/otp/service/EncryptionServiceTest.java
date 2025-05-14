@@ -30,7 +30,7 @@ public class EncryptionServiceTest {
 
         // Then
         assertEquals(firstEncryption, secondEncryption, 
-            "Encriptações do mesmo OTP devem ser diferentes devido ao IV");
+            "Encriptações do mesmo OTP devem ser iguais devido ao IV fixo");
     }
 
     @Test

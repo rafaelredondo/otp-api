@@ -8,7 +8,6 @@
 /Users/rredondo/java-project/src/main/java/com/otp/service/OtpGeneratorService.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/validator/rules/AttemptLimitRule.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/validator/ValidationContext.java
-/Users/rredondo/java-project/src/main/java/com/otp/model/OtpRequest.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/validator/rules/OtpLengthRule.java
 /Users/rredondo/java-project/src/main/java/com/otp/model/OtpNotificationMessage.java
 /Users/rredondo/java-project/src/main/java/com/otp/model/OtpAttempt.java
