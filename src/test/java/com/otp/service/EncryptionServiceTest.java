@@ -37,7 +37,7 @@ public class EncryptionServiceTest {
     @DisplayName("Deve gerar chave de encriptação válida")
     void shouldGenerateValidEncryptionKey() {
         // When
-        String key = encryptionService.generateNewKey();
+        String key = encryptionService.generateValidKey();
 
         // Then
         assertNotNull(key, "Chave gerada não deve ser nula");

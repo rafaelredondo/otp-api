@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.otp.service.EncryptionService;
-import com.otp.service.DefaultEncryptionService;
 
 @Component
 public class OtpMatchRule implements OtpValidationRule {

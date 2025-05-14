@@ -1,8 +1,5 @@
 package com.otp.service;
 
-import java.security.SecureRandom;
-import java.util.Base64;
-
 /**
  * Interface para serviços de encriptação/decriptação
  */

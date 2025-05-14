@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.Instant;
 import org.mockito.Mockito;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.ArgumentMatchers;
 import com.otp.service.EncryptionService;
-import com.otp.service.DefaultEncryptionService;
 
 public class OtpMatchRuleTest {
     private EncryptionService encryptionService;
