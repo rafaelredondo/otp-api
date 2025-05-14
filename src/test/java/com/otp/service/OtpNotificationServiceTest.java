@@ -1,9 +1,7 @@
 package com.otp.service;
 
 import com.otp.model.OtpNotificationMessage;
-import com.otp.notification.NotificationSenderFactory;
-import com.otp.notification.NotificationSender;
-import com.otp.notification.NotificationChannel;
+import com.otp.notification.EmailNotificationSender;
 import com.otp.notification.MessageQueueService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OtpNotificationServiceTest {
 
     @Mock
-    private NotificationSenderFactory senderFactory;
-
-    @Mock
-    private NotificationSender notificationSender;
+    private EmailNotificationSender emailSender;
 
     @Mock
     private MessageQueueService messageQueueService;
@@ -31,13 +26,12 @@ class OtpNotificationServiceTest {
 
     @BeforeEach
     void setUp() {
-        lenient().when(senderFactory.getSender(NotificationChannel.EMAIL)).thenReturn(notificationSender);
-        otpNotificationService = new DefaultOtpNotificationService(messageQueueService, senderFactory);
+        otpNotificationService = new DefaultOtpNotificationService(messageQueueService, emailSender);
     }
 
     @Test
     void shouldSendOtpNotification() {
-        when(notificationSender.send(anyString(), anyString())).thenReturn(true);
+        when(emailSender.send(anyString(), anyString())).thenReturn(true);
 
         boolean result = otpNotificationService.sendOtpNotification("user@email.com", "123456");
         assertTrue(result);
@@ -45,7 +39,7 @@ class OtpNotificationServiceTest {
 
     @Test
     void shouldHandleNotificationSenderError() {
-        when(notificationSender.send(anyString(), anyString())).thenThrow(new RuntimeException("Falha no envio"));
+        when(emailSender.send(anyString(), anyString())).thenThrow(new RuntimeException("Falha no envio"));
 
         assertThrows(RuntimeException.class, () ->
             otpNotificationService.sendOtpNotification("user@email.com", "123456")

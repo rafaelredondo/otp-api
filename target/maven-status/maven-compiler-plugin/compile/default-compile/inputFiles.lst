@@ -40,5 +40,4 @@
 /Users/rredondo/java-project/src/main/java/com/otp/config/RabbitMQConfig.java
 /Users/rredondo/java-project/src/main/java/com/otp/service/SimpleEmailService.java
 /Users/rredondo/java-project/src/main/java/com/otp/notification/EmailNotificationSender.java
-/Users/rredondo/java-project/src/main/java/com/otp/notification/NotificationSenderFactory.java
 /Users/rredondo/java-project/src/main/java/com/otp/repository/OtpHistoryRepository.java

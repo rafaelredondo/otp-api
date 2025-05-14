@@ -8,9 +8,7 @@ import org.springframework.retry.annotation.Retryable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.otp.config.RabbitMQConfig;
-import com.otp.notification.NotificationSenderFactory;
-import com.otp.notification.NotificationChannel;
-import com.otp.notification.NotificationSender;
+import com.otp.notification.EmailNotificationSender;
 import com.otp.notification.MessageQueueService;
 
 public interface OtpNotificationService {
@@ -22,18 +20,17 @@ public interface OtpNotificationService {
 @Service
 class DefaultOtpNotificationService implements OtpNotificationService {
     private static final Logger logger = LoggerFactory.getLogger(DefaultOtpNotificationService.class);
-    private final NotificationSenderFactory senderFactory;
+    private final EmailNotificationSender emailSender;
     private final MessageQueueService messageQueueService;
 
-    public DefaultOtpNotificationService(MessageQueueService messageQueueService, NotificationSenderFactory senderFactory) {
+    public DefaultOtpNotificationService(MessageQueueService messageQueueService, EmailNotificationSender emailSender) {
         this.messageQueueService = messageQueueService;
-        this.senderFactory = senderFactory;
+        this.emailSender = emailSender;
     }
 
     @Override
     public boolean sendOtpNotification(String email, String otp) {
-        NotificationSender sender = senderFactory.getSender(NotificationChannel.EMAIL);
-        return sender.send(email, otp);
+        return emailSender.send(email, otp);
     }
 
     @Override

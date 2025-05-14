@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.otp.endtoend.OtpEndToEndTest" time="2.698" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.otp.endtoend.OtpEndToEndTest" time="2.621" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="BR"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk@21/21.0.7/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/rredondo/java-project/target/surefire/surefirebooter-20250514172453103_3.jar /Users/rredondo/java-project/target/surefire 2025-05-14T17-24-53_052-jvmRun1 surefire-20250514172453103_1tmp surefire_0-20250514172453103_2tmp"/>
+    <property name="sun.java.command" value="/Users/rredondo/java-project/target/surefire/surefirebooter-20250514174726035_3.jar /Users/rredondo/java-project/target/surefire 2025-05-14T17-47-25_987-jvmRun1 surefire-20250514174726035_1tmp surefire_0-20250514174726035_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/rredondo/java-project/target/test-classes:/Users/rredondo/java-project/target/classes:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.2.3/spring-boot-starter-web-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter/3.2.3/spring-boot-starter-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot/3.2.3/spring-boot-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.2.3/spring-boot-autoconfigure-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.2.3/spring-boot-starter-logging-3.2.3.jar:/Users/rredondo/.m2/repository/ch/qos/logback/logback-classic/1.4.14/logback-classic-1.4.14.jar:/Users/rredondo/.m2/repository/ch/qos/logback/logback-core/1.4.14/logback-core-1.4.14.jar:/Users/rredondo/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.21.1/log4j-to-slf4j-2.21.1.jar:/Users/rredondo/.m2/repository/org/apache/logging/log4j/log4j-api/2.21.1/log4j-api-2.21.1.jar:/Users/rredondo/.m2/repository/org/slf4j/jul-to-slf4j/2.0.12/jul-to-slf4j-2.0.12.jar:/Users/rredondo/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/rredondo/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.2.3/spring-boot-starter-json-3.2.3.jar:/Users/rredondo/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.4/jackson-databind-2.15.4.jar:/Users/rredondo/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.4/jackson-annotations-2.15.4.jar:/Users/rredondo/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.4/jackson-core-2.15.4.jar:/Users/rredondo/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.15.4/jackson-datatype-jdk8-2.15.4.jar:/Users/rredondo/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.15.4/jackson-datatype-jsr310-2.15.4.jar:/Users/rredondo/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.15.4/jackson-module-parameter-names-2.15.4.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.2.3/spring-boot-starter-tomcat-3.2.3.jar:/Users/rredondo/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.19/tomcat-embed-core-10.1.19.jar:/Users/rredondo/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.19/tomcat-embed-websocket-10.1.19.jar:/Users/rredondo/.m2/repository/org/springframework/spring-web/6.1.4/spring-web-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-beans/6.1.4/spring-beans-6.1.4.jar:/Users/rredondo/.m2/repository/io/micrometer/micrometer-observation/1.12.3/micrometer-observation-1.12.3.jar:/Users/rredondo/.m2/repository/io/micrometer/micrometer-commons/1.12.3/micrometer-commons-1.12.3.jar:/Users/rredondo/.m2/repository/org/springframework/spring-webmvc/6.1.4/spring-webmvc-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-aop/6.1.4/spring-aop-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-context/6.1.4/spring-context-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-expression/6.1.4/spring-expression-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-validation/3.2.3/spring-boot-starter-validation-3.2.3.jar:/Users/rredondo/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.19/tomcat-embed-el-10.1.19.jar:/Users/rredondo/.m2/repository/org/hibernate/validator/hibernate-validator/8.0.1.Final/hibernate-validator-8.0.1.Final.jar:/Users/rredondo/.m2/repository/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar:/Users/rredondo/.m2/repository/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar:/Users/rredondo/.m2/repository/com/fasterxml/classmate/1.6.0/classmate-1.6.0.jar:/Users/rredondo/.m2/repository/commons-codec/commons-codec/1.16.1/commons-codec-1.16.1.jar:/Users/rredondo/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/Users/rredondo/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/Users/rredondo/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/rredondo/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/rredondo/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/rredondo/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/Users/rredondo/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/Users/rredondo/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.2.3/spring-boot-starter-test-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-test/3.2.3/spring-boot-test-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.2.3/spring-boot-test-autoconfigure-3.2.3.jar:/Users/rredondo/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/rredondo/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/Users/rredondo/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.1/jakarta.xml.bind-api-4.0.1.jar:/Users/rredondo/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.2/jakarta.activation-api-2.1.2.jar:/Users/rredondo/.m2/repository/net/minidev/json-smart/2.5.0/json-smart-2.5.0.jar:/Users/rredondo/.m2/repository/net/minidev/accessors-smart/2.5.0/accessors-smart-2.5.0.jar:/Users/rredondo/.m2/repository/org/ow2/asm/asm/9.3/asm-9.3.jar:/Users/rredondo/.m2/repository/org/assertj/assertj-core/3.24.2/assertj-core-3.24.2.jar:/Users/rredondo/.m2/repository/org/awaitility/awaitility/4.2.0/awaitility-4.2.0.jar:/Users/rredondo/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/Users/rredondo/.m2/repository/org/skyscreamer/jsonassert/1.5.1/jsonassert-1.5.1.jar:/Users/rredondo/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/rredondo/.m2/repository/org/springframework/spring-core/6.1.4/spring-core-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-jcl/6.1.4/spring-jcl-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-test/6.1.4/spring-test-6.1.4.jar:/Users/rredondo/.m2/repository/org/xmlunit/xmlunit-core/2.9.1/xmlunit-core-2.9.1.jar:/Users/rredondo/.m2/repository/org/mockito/mockito-core/5.12.0/mockito-core-5.12.0.jar:/Users/rredondo/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/rredondo/.m2/repository/org/mockito/mockito-junit-jupiter/5.12.0/mockito-junit-jupiter-5.12.0.jar:/Users/rredondo/.m2/repository/net/bytebuddy/byte-buddy/1.14.15/byte-buddy-1.14.15.jar:/Users/rredondo/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.15/byte-buddy-agent-1.14.15.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.2.3/spring-boot-starter-data-jpa-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.2.3/spring-boot-starter-aop-3.2.3.jar:/Users/rredondo/.m2/repository/org/aspectj/aspectjweaver/1.9.21/aspectjweaver-1.9.21.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.2.3/spring-boot-starter-jdbc-3.2.3.jar:/Users/rredondo/.m2/repository/com/zaxxer/HikariCP/5.0.1/HikariCP-5.0.1.jar:/Users/rredondo/.m2/repository/org/springframework/spring-jdbc/6.1.4/spring-jdbc-6.1.4.jar:/Users/rredondo/.m2/repository/org/hibernate/orm/hibernate-core/6.4.4.Final/hibernate-core-6.4.4.Final.jar:/Users/rredondo/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/rredondo/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar:/Users/rredondo/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar:/Users/rredondo/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.4/jaxb-runtime-4.0.4.jar:/Users/rredondo/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.4/jaxb-core-4.0.4.jar:/Users/rredondo/.m2/repository/org/eclipse/angus/angus-activation/2.0.1/angus-activation-2.0.1.jar:/Users/rredondo/.m2/repository/org/glassfish/jaxb/txw2/4.0.4/txw2-4.0.4.jar:/Users/rredondo/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/rredondo/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/rredondo/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/Users/rredondo/.m2/repository/org/springframework/data/spring-data-jpa/3.2.3/spring-data-jpa-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/data/spring-data-commons/3.2.3/spring-data-commons-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/spring-orm/6.1.4/spring-orm-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-tx/6.1.4/spring-tx-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/spring-aspects/6.1.4/spring-aspects-6.1.4.jar:/Users/rredondo/.m2/repository/com/h2database/h2/2.2.224/h2-2.2.224.jar:/Users/rredondo/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/rredondo/.m2/repository/com/github/vladimir-bukhtoyarov/bucket4j-core/7.6.0/bucket4j-core-7.6.0.jar:/Users/rredondo/.m2/repository/org/springframework/boot/spring-boot-starter-amqp/3.2.3/spring-boot-starter-amqp-3.2.3.jar:/Users/rredondo/.m2/repository/org/springframework/spring-messaging/6.1.4/spring-messaging-6.1.4.jar:/Users/rredondo/.m2/repository/org/springframework/amqp/spring-rabbit/3.1.2/spring-rabbit-3.1.2.jar:/Users/rredondo/.m2/repository/org/springframework/amqp/spring-amqp/3.1.2/spring-amqp-3.1.2.jar:/Users/rredondo/.m2/repository/org/springframework/retry/spring-retry/2.0.5/spring-retry-2.0.5.jar:/Users/rredondo/.m2/repository/com/rabbitmq/amqp-client/5.19.0/amqp-client-5.19.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -35,7 +35,7 @@
     <property name="mockito.mock.serializable" value="false"/>
     <property name="java.awt.headless" value="true"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/rredondo/java-project/target/surefire/surefirebooter-20250514172453103_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/rredondo/java-project/target/surefire/surefirebooter-20250514174726035_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.7"/>
     <property name="user.name" value="rredondo"/>
@@ -54,7 +54,7 @@
     <property name="user.dir" value="/Users/rredondo/java-project"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="24803"/>
+    <property name="PID" value="25894"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/rredondo/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
@@ -65,9 +65,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldGenerateAndValidateOtpSuccessfully" classname="com.otp.endtoend.OtpEndToEndTest" time="0.139">
-    <system-out><![CDATA[17:24:54.730 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.otp.endtoend.OtpEndToEndTest]: OtpEndToEndTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-17:24:54.776 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.otp.Main for test class com.otp.endtoend.OtpEndToEndTest
+  <testcase name="shouldGenerateAndValidateOtpSuccessfully" classname="com.otp.endtoend.OtpEndToEndTest" time="0.128">
+    <system-out><![CDATA[17:47:27.485 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.otp.endtoend.OtpEndToEndTest]: OtpEndToEndTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:47:27.525 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.otp.Main for test class com.otp.endtoend.OtpEndToEndTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -77,30 +77,30 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.3)
 
-17:24:55.046 [main] INFO  com.otp.endtoend.OtpEndToEndTest - Starting OtpEndToEndTest using Java 21.0.7 with PID 24803 (started by rredondo in /Users/rredondo/java-project)
-17:24:55.047 [main] DEBUG com.otp.endtoend.OtpEndToEndTest - Running with Spring Boot v3.2.3, Spring v6.1.4
-17:24:55.047 [main] INFO  com.otp.endtoend.OtpEndToEndTest - No active profile set, falling back to 1 default profile: "default"
-17:24:55.386 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-17:24:55.418 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 2 JPA repository interfaces.
-17:24:55.692 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-17:24:55.800 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:df4a3e32-1968-42f5-afba-afb9db41dead user=SA
-17:24:55.801 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-17:24:55.828 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-17:24:55.865 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-17:24:55.886 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-17:24:55.938 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-17:24:56.323 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-17:24:56.340 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-17:24:56.474 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-17:24:56.779 [main] DEBUG c.o.service.DefaultEncryptionService - Initializing DefaultEncryptionService
-17:24:57.017 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-17:24:57.160 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
-17:24:57.160 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
-17:24:57.161 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
-17:24:57.189 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-17:24:57.200 [main] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: java.net.ConnectException: Connection refused
-17:24:57.203 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-17:24:57.204 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+17:47:27.729 [main] INFO  com.otp.endtoend.OtpEndToEndTest - Starting OtpEndToEndTest using Java 21.0.7 with PID 25894 (started by rredondo in /Users/rredondo/java-project)
+17:47:27.730 [main] DEBUG com.otp.endtoend.OtpEndToEndTest - Running with Spring Boot v3.2.3, Spring v6.1.4
+17:47:27.730 [main] INFO  com.otp.endtoend.OtpEndToEndTest - No active profile set, falling back to 1 default profile: "default"
+17:47:28.041 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+17:47:28.069 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 24 ms. Found 2 JPA repository interfaces.
+17:47:28.398 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:47:28.523 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:f7c4b598-ee95-4129-972f-0ae3ed9ed045 user=SA
+17:47:28.524 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:47:28.551 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+17:47:28.586 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+17:47:28.607 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+17:47:28.666 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+17:47:29.066 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+17:47:29.086 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+17:47:29.232 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+17:47:29.495 [main] DEBUG c.o.service.DefaultEncryptionService - Initializing DefaultEncryptionService
+17:47:29.726 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+17:47:29.854 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+17:47:29.855 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+17:47:29.855 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+17:47:29.881 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+17:47:29.895 [main] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: java.net.ConnectException: Connection refused
+17:47:29.898 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+17:47:29.899 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
 org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused
 	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:606)
@@ -130,58 +130,58 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:621)
 	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:568)
 	... 12 common frames omitted
-17:24:57.205 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-17:24:57.212 [main] INFO  com.otp.endtoend.OtpEndToEndTest - Started OtpEndToEndTest in 2.387 seconds (process running for 4.028)
-17:24:57.245 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
-17:24:57.246 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.246 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.246 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.247 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
-17:24:57.330 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
-17:24:57.337 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
-17:24:57.346 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.346 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.346 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.346 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+17:47:29.900 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+17:47:29.906 [main] INFO  com.otp.endtoend.OtpEndToEndTest - Started OtpEndToEndTest in 2.341 seconds (process running for 3.807)
+17:47:29.940 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
+17:47:29.941 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:29.941 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:29.941 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:29.942 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+17:47:30.014 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
+17:47:30.021 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
+17:47:30.031 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:30.031 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:30.031 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:30.031 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
 ]]></system-out>
   </testcase>
-  <testcase name="shouldInvalidateOldOtpWhenNewOtpIsGenerated" classname="com.otp.endtoend.OtpEndToEndTest" time="0.023">
-    <system-out><![CDATA[17:24:57.357 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
-17:24:57.357 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.357 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.357 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.357 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
-17:24:57.360 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
-17:24:57.361 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
-17:24:57.362 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.362 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.362 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.362 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
-17:24:57.365 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
-17:24:57.367 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
-17:24:57.369 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.369 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.369 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.369 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
-17:24:57.369 [main] WARN  c.o.s.validator.rules.OtpMatchRule - OTP does not match
-17:24:57.370 [main] ERROR c.o.exception.GlobalExceptionHandler - OTP validation error: OTP inválido para o email informado
-17:24:57.373 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
-17:24:57.376 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.376 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.376 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.376 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+  <testcase name="shouldInvalidateOldOtpWhenNewOtpIsGenerated" classname="com.otp.endtoend.OtpEndToEndTest" time="0.022">
+    <system-out><![CDATA[17:47:30.040 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
+17:47:30.041 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:30.041 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:30.041 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:30.041 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+17:47:30.043 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
+17:47:30.044 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
+17:47:30.044 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:30.044 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:30.044 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:30.044 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+17:47:30.048 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
+17:47:30.049 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
+17:47:30.052 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:30.052 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:30.052 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:30.052 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+17:47:30.052 [main] WARN  c.o.s.validator.rules.OtpMatchRule - OTP does not match
+17:47:30.053 [main] ERROR c.o.exception.GlobalExceptionHandler - OTP validation error: OTP inválido para o email informado
+17:47:30.056 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
+17:47:30.058 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:30.059 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:30.059 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:30.059 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
 ]]></system-out>
   </testcase>
-  <testcase name="shouldFailValidationWhenOtpIsRevoked" classname="com.otp.endtoend.OtpEndToEndTest" time="0.014">
-    <system-out><![CDATA[17:24:57.380 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
-17:24:57.381 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
-17:24:57.381 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
-17:24:57.381 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
-17:24:57.381 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
-17:24:57.383 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
-17:24:57.384 [main] DEBUG com.otp.service.DefaultOtpService - Revoking OTP for email: exemplo@teste.com with reason: Security concern
-17:24:57.388 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
-17:24:57.390 [main] ERROR com.otp.service.DefaultOtpService - Error validating OTP for email: exemplo@teste.com
+  <testcase name="shouldFailValidationWhenOtpIsRevoked" classname="com.otp.endtoend.OtpEndToEndTest" time="0.016">
+    <system-out><![CDATA[17:47:30.065 [main] DEBUG com.otp.service.DefaultOtpService - Generating OTP for email: exemplo@teste.com
+17:47:30.065 [main] DEBUG c.o.service.DefaultEncryptionService - Starting encryption with key length: 44
+17:47:30.065 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption key loaded successfully, length: 44
+17:47:30.065 [main] DEBUG c.o.service.DefaultEncryptionService - Key decoded successfully, length: 32 bytes
+17:47:30.065 [main] DEBUG c.o.service.DefaultEncryptionService - Encryption completed successfully
+17:47:30.067 [main] INFO  com.otp.service.DefaultOtpService - OTP generated and stored successfully for email: exemplo@teste.com
+17:47:30.070 [main] DEBUG com.otp.service.DefaultOtpService - Revoking OTP for email: exemplo@teste.com with reason: Security concern
+17:47:30.073 [main] DEBUG com.otp.service.DefaultOtpService - Validating OTP for email: exemplo@teste.com
+17:47:30.075 [main] ERROR com.otp.service.DefaultOtpService - Error validating OTP for email: exemplo@teste.com
 com.otp.exception.ResourceNotFoundException: No active OTP found for email: exemplo@teste.com
 	at com.otp.service.DefaultOtpValidatorService.validateOtp(OtpValidatorService.java:76)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
@@ -311,7 +311,7 @@ com.otp.exception.ResourceNotFoundException: No active OTP found for email: exem
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
-17:24:57.390 [main] ERROR c.o.exception.GlobalExceptionHandler - OTP validation error: Error validating OTP for email: exemplo@teste.com
+17:47:30.076 [main] ERROR c.o.exception.GlobalExceptionHandler - OTP validation error: Error validating OTP for email: exemplo@teste.com
 ]]></system-out>
   </testcase>
 </testsuite>
