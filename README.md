@@ -201,5 +201,30 @@ src/
 3. Build the project: `mvn clean install`
 4. Run the tests: `mvn test`
 
+## Controle de Versão e .gitignore
+
+Para manter o repositório limpo e evitar a inclusão de arquivos binários e gerados no controle de versão, este projeto utiliza um arquivo `.gitignore` configurado para Java/Maven. 
+
+### Arquivos ignorados:
+- **Binários compilados**: `.class`, `.jar`, `.war`
+- **Diretórios gerados**: `/target/`, `/build/`
+- **Arquivos de log**: `/logs/`, `*.log`
+- **Arquivos específicos de IDEs**: `.idea/`, `.vscode/`, `.project`, etc.
+- **Arquivos de sistema**: `.DS_Store`, `Thumbs.db`
+
+### Boas práticas para o controle de versão:
+1. **Nunca comitar** arquivos binários compilados
+2. **Nunca comitar** arquivos de log ou dumps
+3. **Nunca comitar** credenciais ou informações sensíveis
+4. **Utilizar variáveis de ambiente** ou arquivos de configuração específicos para cada ambiente
+
+### Se você já comitou arquivos binários:
+Para remover arquivos binários já adicionados ao repositório:
+```bash
+git rm -r --cached target/
+git rm -r --cached logs/
+git commit -m "Remove arquivos binários e gerados do controle de versão"
+```
+
 ## Dependencies
 - JUnit 5 for testing 
