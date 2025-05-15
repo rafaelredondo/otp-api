@@ -72,6 +72,34 @@ POST /api/otp/revoke?email={email}&reason={reason}
 - Revoga um OTP ativo para o email especificado
 - Útil para invalidar OTPs quando necessário
 
+## 📝 Documentação da API (Swagger/OpenAPI)
+
+A documentação completa da API está disponível através do Swagger UI:
+
+```http
+http://localhost:8080/swagger-ui.html
+```
+
+A especificação OpenAPI em formato JSON pode ser acessada em:
+
+```http
+http://localhost:8080/api-docs
+```
+
+Através do Swagger UI, você pode:
+- Explorar todos os endpoints disponíveis
+- Ver detalhes de cada parâmetro e possíveis códigos de resposta
+- Testar os endpoints diretamente na interface
+- Baixar a documentação em formato JSON ou YAML para uso em ferramentas de cliente
+
+### Exemplo de uso com Swagger
+
+1. Acesse `http://localhost:8080/swagger-ui.html` no navegador
+2. Expanda o endpoint desejado (ex: `/api/otp/generate`)
+3. Clique em "Try it out"
+4. Preencha os parâmetros necessários 
+5. Clique em "Execute" para testar o endpoint
+
 ## 🔒 Segurança
 
 - OTPs são criptografados usando AES-256 em modo CBC

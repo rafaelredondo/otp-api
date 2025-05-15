@@ -3,7 +3,6 @@ package com.otp.endtoend;
 import com.otp.model.OtpHistory;
 import com.otp.model.OtpStatus;
 import com.otp.repository.OtpHistoryRepository;
-import com.otp.service.EncryptionService;
 import com.otp.service.OtpNotificationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,6 @@ public class ExpiredOtpTest {
 
     @Autowired
     private OtpHistoryRepository otpHistoryRepository;
-    
-    @Autowired
-    private EncryptionService encryptionService;
 
     @MockBean
     private OtpNotificationService notificationService;
